@@ -7,39 +7,46 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
 
 public class GuessingGame extends JFrame {
-	private JTextField textField;
+	private JTextField txtGuess;
+	private JLabel lblOutput;
 	public GuessingGame() {
 		getContentPane().setLayout(null);
 		
 		JLabel lblGuessingGame = new JLabel("Guessing Game");
-		lblGuessingGame.setBounds(0, 24, 450, 48);
-		lblGuessingGame.setFont(new Font("Myriad Pro", Font.PLAIN, 13));
+		lblGuessingGame.setBounds(0, 27, 450, 48);
+		lblGuessingGame.setFont(new Font("Lato", Font.BOLD, 18));
 		lblGuessingGame.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lblGuessingGame);
 		
-		JLabel lblGuessANumber = new JLabel("Guess a number between1 and 100");
-		lblGuessANumber.setBounds(32, 84, 233, 16);
-		getContentPane().add(lblGuessANumber);
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 102, 450, 48);
+		getContentPane().add(panel);
 		
-		textField = new JTextField();
-		textField.setBounds(277, 84, 78, 26);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		JLabel lblGuessANumber = new JLabel("Guess a number between 1 and 100");
+		panel.add(lblGuessANumber);
+		lblGuessANumber.setFont(new Font("Lato", Font.PLAIN, 13));
+		
+		txtGuess = new JTextField();
+		panel.add(txtGuess);
+		txtGuess.setColumns(4);
 		
 		JButton btnGuess = new JButton("GUESS!");
+		btnGuess.setFont(new Font("Lato", Font.PLAIN, 13));
 		btnGuess.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnGuess.setBounds(163, 122, 117, 29);
+		btnGuess.setBounds(182, 177, 87, 29);
 		getContentPane().add(btnGuess);
 		
-		JLabel lblEnter = new JLabel("Enter a number and click GUESS!");
-		lblEnter.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEnter.setBounds(0, 180, 450, 16);
-		getContentPane().add(lblEnter);
+		lblOutput = new JLabel("Enter a number and click GUESS!");
+		lblOutput.setFont(new Font("Lato", Font.PLAIN, 13));
+		lblOutput.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOutput.setBounds(0, 233, 450, 16);
+		getContentPane().add(lblOutput);
 	}
 
 	public static void main(String[] args) {
