@@ -1,6 +1,6 @@
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 
 import javax.swing.SwingConstants;
@@ -11,17 +11,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import java.awt.Color;
-import java.awt.SystemColor;
 import javax.swing.UIManager;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.MatteBorder;
-import javax.swing.border.EmptyBorder;
+
 
 public class GuessingGame extends JFrame {
 	private JTextField txtGuess; // text field for the user's input 'guess'
 	private JLabel lblOutput; // label for  output
 	private int theNumber; // the number we're trying to guess
-	private int numberOfAttempts;
+	private int attemptsLeft = 7; // give 7 tries
+	
 	
 	public void checkGuess() { // method to check the user's input 'guess'
 		String guessText = txtGuess.getText();
@@ -29,23 +27,31 @@ public class GuessingGame extends JFrame {
 		try {
 		// check the guess 
 		int guess = Integer.parseInt(guessText);
-		
+		//count tries
+		attemptsLeft--;
 		// too high
 		if (guess > theNumber) {
 			message = guess + " is too high. Guess again!";
+			message += "You have " + attemptsLeft + " tries left.";
 			lblOutput.setText(message);
-			numberOfAttempts++;
+			
 		}
 		// too low
 		else if (guess < theNumber) {
 			message = guess + " is too low. Guess again!";
 			lblOutput.setText(message);
-			numberOfAttempts++;
+			
 		}
 		else { // correct
-			numberOfAttempts++;
-			message = guess + " is correct. Congratulations! You Won! " + numberOfAttempts + " tries! Play again";
+			
+			message = guess + " is correct. Congratulations! You Won!  Play again";
+			message += "You have " + attemptsLeft + " tries left.";
 			lblOutput.setText(message);
+			newGame();
+		}
+		if(attemptsLeft <= 0) {
+			javax.swing.JOptionPane.showConfirmDialog(null, "Sorry, you ran out of tries. The number was " 
+		+ theNumber + " Play again!");
 			newGame();
 		}
 		}
@@ -62,9 +68,11 @@ public class GuessingGame extends JFrame {
 	public void newGame() { // create a new random number from 1 to 100
 		
 		theNumber = (int)(Math.random() * 100 +1);
+		attemptsLeft = 7;
 		
 	}
 	public GuessingGame() {
+		setTitle("Guessing Game");
 		getContentPane().setBackground(new Color(102, 205, 170));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -78,7 +86,7 @@ public class GuessingGame extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(224, 255, 255));
-		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
+		panel.setBorder(UIManager.getBorder("Table.focusCellHighlightBorder"));
 		panel.setBounds(74, 102, 302, 48);
 		getContentPane().add(panel);
 		
