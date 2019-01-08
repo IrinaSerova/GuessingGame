@@ -10,6 +10,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.SystemColor;
+import javax.swing.UIManager;
 
 public class GuessingGame extends JFrame {
 	private JTextField txtGuess; // text field for the user's input 'guess'
@@ -19,7 +22,7 @@ public class GuessingGame extends JFrame {
 	public void checkGuess() { // method to check the user's input 'guess'
 		String guessText = txtGuess.getText();
 		String message = "";
-		
+		try {
 		// check the guess 
 		int guess = Integer.parseInt(guessText);
 		
@@ -33,10 +36,19 @@ public class GuessingGame extends JFrame {
 			message = guess + " is too low. Guess again!";
 			lblOutput.setText(message);
 		}
-		else {
-			message = guess + " is correct. Congratulations! You Won!";
+		else { // correct
+			message = guess + " is correct. Congratulations! You Won! Play again";
 			lblOutput.setText(message);
+			newGame();
 		}
+		}
+		catch(Exception e) {
+			lblOutput.setText("Enter a whole number between 1 and 100");
+		}
+		
+		txtGuess.requestFocus();
+		txtGuess.selectAll(); 
+		
 		
 	}
 	public void newGame() { // create a new random number from 1 to 100
@@ -45,6 +57,7 @@ public class GuessingGame extends JFrame {
 		
 	}
 	public GuessingGame() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		JLabel lblGuessingGame = new JLabel("Guessing Game");
@@ -62,10 +75,18 @@ public class GuessingGame extends JFrame {
 		lblGuessANumber.setFont(new Font("Lato", Font.PLAIN, 13));
 		
 		txtGuess = new JTextField();
+		txtGuess.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				checkGuess();
+			}
+		});
+		txtGuess.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(txtGuess);
 		txtGuess.setColumns(4);
 		
 		JButton btnGuess = new JButton("GUESS!");
+		btnGuess.setBackground(UIManager.getColor("Button.light"));
+		btnGuess.setForeground(Color.DARK_GRAY);
 		btnGuess.setFont(new Font("Lato", Font.PLAIN, 13));
 		btnGuess.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
