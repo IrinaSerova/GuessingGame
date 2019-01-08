@@ -31,7 +31,7 @@ public class GuessingGame extends JFrame {
 		attemptsLeft--;
 		// too high
 		if (guess > theNumber) {
-			message = guess + " is too high. Guess again!";
+			message = guess + " is too high. Guess again! ";
 			message += "You have " + attemptsLeft + " tries left.";
 			lblOutput.setText(message);
 			
