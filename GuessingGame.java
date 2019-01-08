@@ -13,11 +13,15 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.EmptyBorder;
 
 public class GuessingGame extends JFrame {
 	private JTextField txtGuess; // text field for the user's input 'guess'
 	private JLabel lblOutput; // label for  output
 	private int theNumber; // the number we're trying to guess
+	private int numberOfAttempts;
 	
 	public void checkGuess() { // method to check the user's input 'guess'
 		String guessText = txtGuess.getText();
@@ -30,14 +34,17 @@ public class GuessingGame extends JFrame {
 		if (guess > theNumber) {
 			message = guess + " is too high. Guess again!";
 			lblOutput.setText(message);
+			numberOfAttempts++;
 		}
 		// too low
 		else if (guess < theNumber) {
 			message = guess + " is too low. Guess again!";
 			lblOutput.setText(message);
+			numberOfAttempts++;
 		}
 		else { // correct
-			message = guess + " is correct. Congratulations! You Won! Play again";
+			numberOfAttempts++;
+			message = guess + " is correct. Congratulations! You Won! " + numberOfAttempts + " tries! Play again";
 			lblOutput.setText(message);
 			newGame();
 		}
@@ -45,11 +52,12 @@ public class GuessingGame extends JFrame {
 		catch(Exception e) {
 			lblOutput.setText("Enter a whole number between 1 and 100");
 		}
+		finally {
 		
 		txtGuess.requestFocus();
 		txtGuess.selectAll(); 
 		
-		
+		}
 	}
 	public void newGame() { // create a new random number from 1 to 100
 		
@@ -57,20 +65,25 @@ public class GuessingGame extends JFrame {
 		
 	}
 	public GuessingGame() {
+		getContentPane().setBackground(new Color(102, 205, 170));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		JLabel lblGuessingGame = new JLabel("Guessing Game");
+		lblGuessingGame.setForeground(new Color(0, 100, 0));
 		lblGuessingGame.setBounds(0, 27, 450, 48);
 		lblGuessingGame.setFont(new Font("Lato", Font.BOLD, 18));
 		lblGuessingGame.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lblGuessingGame);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 102, 450, 48);
+		panel.setBackground(new Color(224, 255, 255));
+		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
+		panel.setBounds(74, 102, 302, 48);
 		getContentPane().add(panel);
 		
 		JLabel lblGuessANumber = new JLabel("Guess a number between 1 and 100");
+		lblGuessANumber.setForeground(new Color(0, 128, 0));
 		panel.add(lblGuessANumber);
 		lblGuessANumber.setFont(new Font("Lato", Font.PLAIN, 13));
 		
@@ -85,8 +98,8 @@ public class GuessingGame extends JFrame {
 		txtGuess.setColumns(4);
 		
 		JButton btnGuess = new JButton("GUESS!");
-		btnGuess.setBackground(UIManager.getColor("Button.light"));
-		btnGuess.setForeground(Color.DARK_GRAY);
+		btnGuess.setBackground(new Color(30, 144, 255));
+		btnGuess.setForeground(new Color(0, 100, 0));
 		btnGuess.setFont(new Font("Lato", Font.PLAIN, 13));
 		btnGuess.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -97,7 +110,8 @@ public class GuessingGame extends JFrame {
 		getContentPane().add(btnGuess);
 		
 		lblOutput = new JLabel("Enter a number and click GUESS!");
-		lblOutput.setFont(new Font("Lato", Font.PLAIN, 13));
+		lblOutput.setForeground(new Color(0, 100, 0));
+		lblOutput.setFont(new Font("Lato", Font.PLAIN, 15));
 		lblOutput.setHorizontalAlignment(SwingConstants.CENTER);
 		lblOutput.setBounds(0, 233, 450, 16);
 		getContentPane().add(lblOutput);
