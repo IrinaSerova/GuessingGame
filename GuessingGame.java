@@ -44,7 +44,7 @@ public class GuessingGame extends JFrame {
 		}
 		else { // correct
 			
-			message = guess + " is correct. Congratulations! You Won!  Play again";
+			message = guess + " is correct. Congratulations! You Won! ";
 			message += "You have " + attemptsLeft + " tries left.";
 			lblOutput.setText(message);
 			newGame();
