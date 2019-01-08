@@ -1,6 +1,8 @@
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -37,6 +39,11 @@ public class GuessingGame extends JFrame {
 		}
 		
 	}
+	public void newGame() { // create a new random number from 1 to 100
+		
+		theNumber = (int)(Math.random() * 100 +1);
+		
+	}
 	public GuessingGame() {
 		getContentPane().setLayout(null);
 		
@@ -62,6 +69,7 @@ public class GuessingGame extends JFrame {
 		btnGuess.setFont(new Font("Lato", Font.PLAIN, 13));
 		btnGuess.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				checkGuess();
 			}
 		});
 		btnGuess.setBounds(182, 177, 87, 29);
@@ -75,7 +83,11 @@ public class GuessingGame extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		GuessingGame theGame =  new GuessingGame();
+		theGame.newGame();
+		theGame.setSize(new Dimension(450, 400));
+		theGame.setVisible(true);
 
 	}
 }
