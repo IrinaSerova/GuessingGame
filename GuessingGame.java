@@ -10,8 +10,33 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 
 public class GuessingGame extends JFrame {
-	private JTextField txtGuess;
-	private JLabel lblOutput;
+	private JTextField txtGuess; // text field for the user's input 'guess'
+	private JLabel lblOutput; // label for  output
+	private int theNumber; // the number we're trying to guess
+	
+	public void checkGuess() { // method to check the user's input 'guess'
+		String guessText = txtGuess.getText();
+		String message = "";
+		
+		// check the guess 
+		int guess = Integer.parseInt(guessText);
+		
+		// too high
+		if (guess > theNumber) {
+			message = guess + " is too high. Guess again!";
+			lblOutput.setText(message);
+		}
+		// too low
+		else if (guess < theNumber) {
+			message = guess + " is too low. Guess again!";
+			lblOutput.setText(message);
+		}
+		else {
+			message = guess + " is correct. Congratulations! You Won!";
+			lblOutput.setText(message);
+		}
+		
+	}
 	public GuessingGame() {
 		getContentPane().setLayout(null);
 		
